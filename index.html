@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Business Use Cases - Real Prompts</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { font-family: 'Outfit', system-ui, sans-serif; }
+    body { background-color: #09090b; }
+    .card { transition: all 0.3s ease; }
+    .card:hover { transform: translateY(-4px); border-color: rgba(249, 115, 22, 0.3); }
+    .tag { transition: all 0.2s ease; }
+    .tag:hover { background: rgba(249, 115, 22, 0.1); color: #f97316; }
+    .filter-active { background: linear-gradient(135deg, #f97316 0%, #ea580c 100%) !important; color: #09090b !important; }
+    .copy-btn:active { transform: scale(0.95); }
+  </style>
+</head>
+<body class="min-h-screen text-white">
+  <!-- Header -->
+  <header class="border-b border-zinc-800 sticky top-0 bg-zinc-950/80 backdrop-blur-xl">
+    <div class="max-w-6xl mx-auto px-6 py-4">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center">
+            <i class="ph ph-robot text-white text-xl"></i>
+          </div>
+          <div>
+            <span class="text-xl font-bold">AI Business</span>
+            <span class="text-orange-500">Use Cases</span>
+          </div>
+        </div>
+        <nav class="flex items-center gap-4">
+          <span id="count" class="text-sm text-zinc-500"></span>
+          <a href="#" class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-zinc-400 hover:text-orange-500">
+            <i class="ph ph-github-logo"></i> GitHub
+          </a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="py-16 px-6">
+    <div class="max-w-3xl mx-auto text-center">
+      <h1 class="text-4xl font-bold mb-4">Real Prompts That Convert</h1>
+      <p class="text-zinc-400 mb-8">Proven prompts for selling AI services to local businesses. Copy, adapt, and use them.</p>
+      
+      <!-- Search -->
+      <div class="relative max-w-xl mx-auto">
+        <i class="ph ph-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500 text-xl"></i>
+        <input type="text" id="search" placeholder="Search prompts..." 
+          class="w-full bg-zinc-900 border border-zinc-800 rounded-xl pl-12 pr-4 py-4 text-white focus:border-orange-500 focus:outline-none">
+      </div>
+    </div>
+  </section>
+
+  <!-- Filters -->
+  <section class="px-6 mb-8">
+    <div class="max-w-6xl mx-auto">
+      <div class="flex flex-wrap gap-2" id="filters">
+        <button data-filter="all" class="filter-active px-4 py-2 rounded-lg text-sm font-medium bg-zinc-800 text-white">All</button>
+        <button data-filter="cold-email" class="px-4 py-2 rounded-lg text-sm font-medium bg-zinc-800 text-zinc-400 tag">Cold Email</button>
+        <button data-filter="cold-call" class="px-4 py-2 rounded-lg text-sm font-medium bg-zinc-800 text-zinc-400 tag">Cold Call</button>
+        <button data-filter="landing-page" class="px-4 py-2 rounded-lg text-sm font-medium bg-zinc-800 text-zinc-400 tag">Landing Page</button>
+        <button data-filter="outreach" class="px-4 py-2 rounded-lg text-sm font-medium bg-zinc-800 text-zinc-400 tag">Outreach</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Use Cases Grid -->
+  <section class="px-6 pb-16">
+    <div class="max-w-6xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="useCasesGrid">
+        <!-- Cards will be injected by JS -->
+      </div>
+    </div>
+  </section>
+
+  <footer class="py-8 text-center text-zinc-500 text-sm border-t border-zinc-800">
+    <p>AI Business Use Cases © 2026</p>
+  </footer>
+
+  <script>
+    // Use Cases Data
+    const useCases = [
+      {
+        id: 1,
+        category: "cold-email",
+        title: "Free AI Receptionist Email",
+        description: "Email offering free setup to plumbers, electricians, HVAC businesses",
+        prompt: `Subject: Free AI receptionist for [Business Name]
+
+Hi [Name],
+
+Quick question - when you're busy on a job or after hours, what happens to your phone calls? Do they go to voicemail?
+
+I help local businesses with an AI receptionist that answers calls 24/7. It books appointments, takes messages, handles questions - all automatically.
+
+Here's what I'd like to do: I'll set it up completely FREE for you. No cost, no strings. Try it for 14 days. If you love it, it's £89/month. If not, you walk away.
+
+Fair?
+
+Cheers,
+Abdelhak`,
+        tags: ["plumber", "electrician", "hvac"]
+      },
+      {
+        id: 2,
+        category: "cold-call",
+        title: "Cold Call Script",
+        description: "5-minute cold call script for booking demos",
+        prompt: `Opening:
+"Hi, is this [Business]? Great. I'm Abdelhak. I help local businesses with an AI receptionist that answers calls 24/7."
+
+Problem:
+"Quick question - when you're busy on a job or after hours, what happens to your phone calls?"
+
+Solution:
+"What I do is set up an AI receptionist - a virtual person who answers your calls. They book appointments, take messages, answer questions."
+
+Offer:
+"Here's what I'd like to do - set it up FREE for you. 14-day trial. £89/month if you love it. Fair?"
+
+Close:
+"Can I book you a 5-minute demo?"`,
+        tags: ["all", "trades"]
+      },
+      {
+        id: 3,
+        category: "landing-page",
+        title: "Free AI Receptionist Landing Page",
+        description: "High-converting landing page headline and copy",
+        prompt: `HEADLINE: FREE AI Receptionist - Limited Offer
+
+SUBHEAD: I'll set it up for FREE. You pay only if you love it.
+
+BENEFITS:
+- Answers calls 24/7
+- Books appointments automatically
+- Never misses a lead
+- Costs less than hiring someone
+
+OFFER:
+- £199 setup = FREE
+- 14-day free trial
+- £89/month after
+- Cancel anytime
+
+CTA: Claim Your Free Setup`,
+        tags: ["conversion", "copy"]
+      },
+      {
+        id: 4,
+        category: "outreach",
+        title: "Chatbot Outreach Email",
+        description: "Email to restaurants, salons, dental clinics about chatbot",
+        prompt: `Subject: A chatbot for [Business Name]?
+
+Hi [Name],
+
+Ever wish your website could answer customer questions 24/7?
+
+I build chatbots for local businesses - they answer FAQs, collect leads, book appointments - automatically.
+
+Would you be interested in a free demo?
+
+Cheers,
+Abdelhak
+
+P.S. Takes 5 minutes to set up.`,
+        tags: ["restaurant", "salon", "dental"]
+      },
+      {
+        id: 5,
+        category: "cold-email",
+        title: "Follow-Up Email Template",
+        description: "Follow up after no response from first email",
+        prompt: `Subject: Quick follow-up
+
+Hi [Name],
+
+Just following up on my last email about the AI receptionist.
+
+I know you're busy - just wanted to see if you had any questions?
+
+If it's not for you, no worries - just let me know either way.
+
+Cheers,
+Abdelhak`,
+        tags: ["follow-up"]
+      },
+      {
+        id: 6,
+        category: "landing-page",
+        title: "AI Suite Landing Page",
+        description: "Complete landing page for AI Suite service",
+        prompt: `HEADLINE: AI Suite - Complete Business Automation
+
+SUBHEAD: Your entire business running on AI. Not just one tool - but a complete digital workforce.
+
+AI EMPLOYEES:
+- AI Receptionist - answers calls 24/7
+- AI Sales Rep - follows up leads
+- AI Support - answers questions
+- AI Bookkeeper - tracks expenses
+- AI Scheduler - manages calendar
+- AI Marketer - posts on social
+
+PRICING:
+- Starter: £297/mo (2 AI employees)
+- Professional: £497/mo (4 AI employees)
+- Enterprise: £997/mo (unlimited)
+
+CTA: Get Started`,
+        tags: ["enterprise", "automation"]
+      },
+      {
+        id: 7,
+        category: "cold-call",
+        title: "Objection Handling",
+        description: "Handle common objections during cold calls",
+        prompt: `"I already have someone":
+"That's great! This could just be backup for when they're busy or after hours."
+
+"I don't need it":
+"Totally understand. Can I ask - when you miss a call, do you ever lose that customer?"
+
+"Send me an email":
+"Sure. But honestly, this is better shown than told. Can I book you a 5-minute demo? No commitment."`,
+        tags: ["objections"]
+      },
+      {
+        id: 8,
+        category: "outreach",
+        title: "SMS Outreach Template",
+        description: "Short SMS for quick outreach",
+        prompt: `Hi [Name], it's Abdelhak. I help businesses with AI that answers calls 24/7 - never miss a lead again. 
+
+Interested in a free demo? Reply YES and I'll call you.
+
+Sent from my AI assistant`,
+        tags: ["sms", "quick"]
+      }
+    ];
+
+    // Render cards
+    function renderCards(filtered) {
+      const grid = document.getElementById('useCasesGrid');
+      grid.innerHTML = filtered.map(uc => `
+        <div class="card bg-zinc-900 border border-zinc-800 rounded-xl p-6 cursor-pointer" data-category="${uc.category}">
+          <div class="flex items-start justify-between mb-4">
+            <span class="px-3 py-1 bg-orange-500/10 text-orange-500 rounded-full text-xs font-medium">${uc.category.replace('-', ' ')}</span>
+            <button class="copy-btn p-2 hover:bg-zinc-800 rounded-lg" onclick="copyPrompt('${uc.id}')">
+              <i class="ph ph-copy text-zinc-400"></i>
+            </button>
+          </div>
+          <h3 class="font-bold text-lg mb-2">${uc.title}</h3>
+          <p class="text-zinc-400 text-sm mb-4">${uc.description}</p>
+          <div class="flex flex-wrap gap-2">
+            ${uc.tags.map(t => `<span class="px-2 py-1 bg-zinc-800 text-zinc-400 rounded text-xs">#${t}</span>`).join('')}
+          </div>
+        </div>
+      `).join('');
+      
+      document.getElementById('count').textContent = `${filtered.length} Prompts`;
+    }
+
+    // Copy prompt
+    function copyPrompt(id) {
+      const uc = useCases.find(u => u.id === id);
+      navigator.clipboard.writeText(uc.prompt).then(() => {
+        alert('Prompt copied!');
+      });
+    }
+
+    // Filter
+    document.getElementById('filters').addEventListener('click', (e) => {
+      if (e.target.tagName === 'BUTTON') {
+        document.querySelectorAll('[data-filter]').forEach(b => {
+          b.classList.remove('filter-active');
+          b.classList.add('text-zinc-400');
+        });
+        e.target.classList.add('filter-active');
+        e.target.classList.remove('text-zinc-400');
+        
+        const filter = e.target.dataset.filter;
+        const filtered = filter === 'all' ? useCases : useCases.filter(uc => uc.category === filter);
+        renderCards(filtered);
+      }
+    });
+
+    // Search
+    document.getElementById('search').addEventListener('input', (e) => {
+      const query = e.target.value.toLowerCase();
+      const filtered = useCases.filter(uc => 
+        uc.title.toLowerCase().includes(query) || 
+        uc.description.toLowerCase().includes(query) ||
+        uc.prompt.toLowerCase().includes(query)
+      );
+      renderCards(filtered);
+    });
+
+    // Init
+    renderCards(useCases);
+  </script>
+</body>
+</html>
