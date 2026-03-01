@@ -34,7 +34,7 @@
         </div>
         <nav class="flex items-center gap-4">
           <span id="count" class="text-sm text-zinc-500"></span>
-          <a href="#" class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-zinc-400 hover:text-orange-500">
+          <a href="https://github.com/Tigha66/ai-use-cases" target="_blank" class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-zinc-400 hover:text-orange-500">
             <i class="ph ph-github-logo"></i> GitHub
           </a>
         </nav>
@@ -45,8 +45,8 @@
   <!-- Hero -->
   <section class="py-16 px-6">
     <div class="max-w-3xl mx-auto text-center">
-      <h1 class="text-4xl font-bold mb-4">Real Prompts That Convert</h1>
-      <p class="text-zinc-400 mb-8">Proven prompts for selling AI services to local businesses. Copy, adapt, and use them.</p>
+      <h1 class="text-4xl font-bold mb-4">Real Prompts That Work</h1>
+      <p class="text-zinc-400 mb-8">Proven prompts from the OpenClaw community. Copy, adapt, and use them.</p>
       
       <!-- Search -->
       <div class="relative max-w-xl mx-auto">
@@ -62,10 +62,10 @@
     <div class="max-w-6xl mx-auto">
       <div class="flex flex-wrap gap-2" id="filters">
         <button data-filter="all" class="filter-active px-4 py-2 rounded-lg text-sm font-medium bg-zinc-800 text-white">All</button>
-        <button data-filter="cold-email" class="px-4 py-2 rounded-lg text-sm font-medium bg-zinc-800 text-zinc-400 tag">Cold Email</button>
-        <button data-filter="cold-call" class="px-4 py-2 rounded-lg text-sm font-medium bg-zinc-800 text-zinc-400 tag">Cold Call</button>
-        <button data-filter="landing-page" class="px-4 py-2 rounded-lg text-sm font-medium bg-zinc-800 text-zinc-400 tag">Landing Page</button>
+        <button data-filter="automation" class="px-4 py-2 rounded-lg text-sm font-medium bg-zinc-800 text-zinc-400 tag">Automation</button>
         <button data-filter="outreach" class="px-4 py-2 rounded-lg text-sm font-medium bg-zinc-800 text-zinc-400 tag">Outreach</button>
+        <button data-filter="project" class="px-4 py-2 rounded-lg text-sm font-medium bg-zinc-800 text-zinc-400 tag">Project Mgmt</button>
+        <button data-filter="customer" class="px-4 py-2 rounded-lg text-sm font-medium bg-zinc-800 text-zinc-400 tag">Customer Service</button>
       </div>
     </div>
   </section>
@@ -74,23 +74,70 @@
   <section class="px-6 pb-16">
     <div class="max-w-6xl mx-auto">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="useCasesGrid">
-        <!-- Cards will be injected by JS -->
       </div>
     </div>
   </section>
 
   <footer class="py-8 text-center text-zinc-500 text-sm border-t border-zinc-800">
-    <p>AI Business Use Cases © 2026</p>
+    <p>AI Business Use Cases © 2026 · Source: awesome-openclaw-usecases</p>
   </footer>
 
   <script>
-    // Use Cases Data
+    // Real prompts from OpenClaw community
     const useCases = [
       {
         id: 1,
-        category: "cold-email",
-        title: "Free AI Receptionist Email",
-        description: "Email offering free setup to plumbers, electricians, HVAC businesses",
+        category: "automation",
+        title: "Daily Reddit Digest",
+        description: "Get top posts from your favorite subreddits every day automatically",
+        prompt: `I want you to give me the top performing posts from the following subreddits.
+[paste your list here]
+Create a separate memory for the reddit processes, about the type of posts I like to see and every day ask me if I liked the list you provided. Save my preference as rules in the memory to use for a better digest curation. (e.g. do not include memes.)
+Every day at 5pm, run this process and give me the digest.`,
+        tags: ["reddit", "automation", "digest"]
+      },
+      {
+        id: 2,
+        category: "project",
+        title: "Autonomous Project Management",
+        description: "Manage complex projects with subagents using STATE.yaml pattern",
+        prompt: `I want you to manage my [project name] project using the STATE.yaml pattern.
+
+Create a STATE.yaml file with these sections:
+- project: [name]
+- tasks: [array of tasks with id, status, owner, notes]
+- next_actions: [what to do next]
+
+Rules:
+1. Spawn subagents for each task
+2. Subagents update STATE.yaml on progress
+3. Other agents poll STATE.yaml for unblocked work
+4. Report status to me periodically`,
+        tags: ["subagents", "coordination", "tasks"]
+      },
+      {
+        id: 3,
+        category: "customer",
+        title: "Multi-Channel Customer Service",
+        description: "Unified inbox for WhatsApp, Instagram, Email, and Google Reviews",
+        prompt: `Set up an AI customer service system that handles:
+- WhatsApp Business messages
+- Instagram DMs  
+- Gmail emails
+- Google Reviews responses
+
+Rules:
+1. Auto-respond to FAQs about our services
+2. Escalate complex issues to me
+3. Use test mode for demo purposes
+4. Train on our services, pricing, and policies`,
+        tags: ["whatsapp", "instagram", "unified-inbox"]
+      },
+      {
+        id: 4,
+        category: "outreach",
+        title: "Cold Email - Free AI Receptionist",
+        description: "Email offering free setup to local businesses",
         prompt: `Subject: Free AI receptionist for [Business Name]
 
 Hi [Name],
@@ -105,15 +152,15 @@ Fair?
 
 Cheers,
 Abdelhak`,
-        tags: ["plumber", "electrician", "hvac"]
+        tags: ["cold-email", "plumber", "electrician"]
       },
       {
-        id: 2,
-        category: "cold-call",
+        id: 5,
+        category: "outreach",
         title: "Cold Call Script",
-        description: "5-minute cold call script for booking demos",
+        description: "5-minute cold call for booking demos",
         prompt: `Opening:
-"Hi, is this [Business]? Great. I'm Abdelhak. I help local businesses with an AI receptionist that answers calls 24/7."
+"Hi, is this [Business]? Great. I'm [Your Name]. I help local businesses with an AI receptionist that answers calls 24/7."
 
 Problem:
 "Quick question - when you're busy on a job or after hours, what happens to your phone calls?"
@@ -126,58 +173,89 @@ Offer:
 
 Close:
 "Can I book you a 5-minute demo?"`,
-        tags: ["all", "trades"]
+        tags: ["cold-call", "sales", "script"]
       },
       {
-        id: 3,
-        category: "landing-page",
-        title: "Free AI Receptionist Landing Page",
-        description: "High-converting landing page headline and copy",
-        prompt: `HEADLINE: FREE AI Receptionist - Limited Offer
-
-SUBHEAD: I'll set it up for FREE. You pay only if you love it.
-
-BENEFITS:
-- Answers calls 24/7
-- Books appointments automatically
-- Never misses a lead
-- Costs less than hiring someone
-
-OFFER:
-- £199 setup = FREE
-- 14-day free trial
-- £89/month after
-- Cancel anytime
-
-CTA: Claim Your Free Setup`,
-        tags: ["conversion", "copy"]
+        id: 6,
+        category: "automation",
+        title: "YouTube Content Pipeline",
+        description: "Automate video idea scouting and research",
+        prompt: `Create an automated YouTube content pipeline:
+1. Monitor trending topics in [your niche]
+2. Research competitor channels
+3. Generate video ideas with hooks
+4. Track weekly content performance
+5. Every Monday at 9am, give me a content brief`,
+        tags: ["youtube", "content", "automation"]
       },
       {
-        id: 4,
+        id: 7,
+        category: "project",
+        title: "Multi-Agent Team",
+        description: "Run specialized agents as a coordinated team",
+        prompt: `Set up a multi-agent team with these roles:
+- CEO Agent: Makes strategic decisions
+- Developer Agent: Writes code, builds apps
+- Marketer Agent: Creates content, runs outreach
+- Researcher Agent: Finds leads, verifies info
+- Assistant Agent: Handles scheduling, follow-ups
+
+Coordinate through a shared task board. Each agent reports progress.`,
+        tags: ["team", "agents", "coordination"]
+      },
+      {
+        id: 8,
+        category: "automation",
+        title: "Custom Morning Brief",
+        description: "Get a personalized daily briefing every morning",
+        prompt: `Every morning at 7am, give me a custom briefing including:
+1. Top 3 tasks for today (from my priorities)
+2. Any meetings or appointments
+3. Relevant news for [your industry]
+4. Quick wins I can accomplish today
+5. One AI-recommended action
+
+Format: Short, scannable, action-oriented`,
+        tags: ["briefing", "morning", "productivity"]
+      },
+      {
+        id: 9,
+        category: "customer",
+        title: "Event Guest Confirmation",
+        description: "Automate event RSVPs via AI voice calls",
+        prompt: `I need to call my event guests to confirm attendance.
+For each guest:
+1. Call them and confirm if they can attend
+2. Ask for +1s or dietary requirements
+3. Take notes
+4. Update the guest list
+
+After all calls, give me a summary with:
+- Confirmed count
+- Declined count
+- Pending
+- Any special notes`,
+        tags: ["voice", "automation", "events"]
+      },
+      {
+        id: 10,
+        category: "automation",
+        title: "Personal Knowledge Base (RAG)",
+        description: "Build a searchable knowledge base from your资料",
+        prompt: `I want to build a personal knowledge base:
+1. When I share URLs, tweets, or articles, extract the key info and save it
+2. Make it searchable via natural language
+3. Cite sources when answering
+4. Update when I share updated info
+
+Use a simple file-based storage system I can search anytime.`,
+        tags: ["knowledge", "rag", "memory"]
+      },
+      {
+        id: 11,
         category: "outreach",
-        title: "Chatbot Outreach Email",
-        description: "Email to restaurants, salons, dental clinics about chatbot",
-        prompt: `Subject: A chatbot for [Business Name]?
-
-Hi [Name],
-
-Ever wish your website could answer customer questions 24/7?
-
-I build chatbots for local businesses - they answer FAQs, collect leads, book appointments - automatically.
-
-Would you be interested in a free demo?
-
-Cheers,
-Abdelhak
-
-P.S. Takes 5 minutes to set up.`,
-        tags: ["restaurant", "salon", "dental"]
-      },
-      {
-        id: 5,
-        category: "cold-email",
         title: "Follow-Up Email Template",
-        description: "Follow up after no response from first email",
+        description: "Follow up when you don't get a response",
         prompt: `Subject: Quick follow-up
 
 Hi [Name],
@@ -189,60 +267,21 @@ I know you're busy - just wanted to see if you had any questions?
 If it's not for you, no worries - just let me know either way.
 
 Cheers,
-Abdelhak`,
-        tags: ["follow-up"]
+[Your Name]`,
+        tags: ["follow-up", "email", "outreach"]
       },
       {
-        id: 6,
-        category: "landing-page",
-        title: "AI Suite Landing Page",
-        description: "Complete landing page for AI Suite service",
-        prompt: `HEADLINE: AI Suite - Complete Business Automation
-
-SUBHEAD: Your entire business running on AI. Not just one tool - but a complete digital workforce.
-
-AI EMPLOYEES:
-- AI Receptionist - answers calls 24/7
-- AI Sales Rep - follows up leads
-- AI Support - answers questions
-- AI Bookkeeper - tracks expenses
-- AI Scheduler - manages calendar
-- AI Marketer - posts on social
-
-PRICING:
-- Starter: £297/mo (2 AI employees)
-- Professional: £497/mo (4 AI employees)
-- Enterprise: £997/mo (unlimited)
-
-CTA: Get Started`,
-        tags: ["enterprise", "automation"]
-      },
-      {
-        id: 7,
-        category: "cold-call",
-        title: "Objection Handling",
-        description: "Handle common objections during cold calls",
-        prompt: `"I already have someone":
-"That's great! This could just be backup for when they're busy or after hours."
-
-"I don't need it":
-"Totally understand. Can I ask - when you miss a call, do you ever lose that customer?"
-
-"Send me an email":
-"Sure. But honestly, this is better shown than told. Can I book you a 5-minute demo? No commitment."`,
-        tags: ["objections"]
-      },
-      {
-        id: 8,
-        category: "outreach",
-        title: "SMS Outreach Template",
-        description: "Short SMS for quick outreach",
-        prompt: `Hi [Name], it's Abdelhak. I help businesses with AI that answers calls 24/7 - never miss a lead again. 
-
-Interested in a free demo? Reply YES and I'll call you.
-
-Sent from my AI assistant`,
-        tags: ["sms", "quick"]
+        id: 12,
+        category: "project",
+        title: "Habit Tracker & Coach",
+        description: "Proactive habit tracking with accountability",
+        prompt: `Set up a habit tracking system:
+1. Track my daily habits: [list your habits]
+2. Every evening, ask me how I did
+3. Maintain streak counts
+4. If I miss a day, gently remind me
+5. Adapt encouragement based on my progress`,
+        tags: ["habits", "accountability", "tracking"]
       }
     ];
 
@@ -250,10 +289,10 @@ Sent from my AI assistant`,
     function renderCards(filtered) {
       const grid = document.getElementById('useCasesGrid');
       grid.innerHTML = filtered.map(uc => `
-        <div class="card bg-zinc-900 border border-zinc-800 rounded-xl p-6 cursor-pointer" data-category="${uc.category}">
+        <div class="card bg-zinc-900 border border-zinc-800 rounded-xl p-6 cursor-pointer" data-category="${uc.category}" onclick="showPrompt(${uc.id})">
           <div class="flex items-start justify-between mb-4">
             <span class="px-3 py-1 bg-orange-500/10 text-orange-500 rounded-full text-xs font-medium">${uc.category.replace('-', ' ')}</span>
-            <button class="copy-btn p-2 hover:bg-zinc-800 rounded-lg" onclick="copyPrompt('${uc.id}')">
+            <button class="copy-btn p-2 hover:bg-zinc-800 rounded-lg" onclick="event.stopPropagation(); copyPrompt(${uc.id})">
               <i class="ph ph-copy text-zinc-400"></i>
             </button>
           </div>
@@ -266,6 +305,27 @@ Sent from my AI assistant`,
       `).join('');
       
       document.getElementById('count').textContent = `${filtered.length} Prompts`;
+    }
+
+    // Show prompt modal
+    function showPrompt(id) {
+      const uc = useCases.find(u => u.id === id);
+      const modal = document.createElement('div');
+      modal.className = 'fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4';
+      modal.onclick = () => modal.remove();
+      modal.innerHTML = `
+        <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 max-w-2xl w-full max-h-[80vh] overflow-y-auto" onclick="event.stopPropagation()">
+          <div class="flex justify-between items-start mb-4">
+            <h3 class="font-bold text-xl">${uc.title}</h3>
+            <button onclick="this.closest('.fixed').remove()" class="text-zinc-400 hover:text-white"><i class="ph ph-x text-xl"></i></button>
+          </div>
+          <pre class="bg-zinc-950 p-4 rounded-lg text-sm text-zinc-300 whitespace-pre-wrap overflow-x-auto">${uc.prompt}</pre>
+          <button onclick="copyPrompt(${uc.id}); this.closest('.fixed').remove()" class="mt-4 w-full bg-orange-500 hover:bg-orange-600 py-3 rounded-lg font-bold">
+            <i class="ph ph-copy mr-2"></i> Copy Prompt
+          </button>
+        </div>
+      `;
+      document.body.appendChild(modal);
     }
 
     // Copy prompt
